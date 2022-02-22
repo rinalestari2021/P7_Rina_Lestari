@@ -11,6 +11,11 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
     idle: dbConfig.pool.idle,
   },
 });
+
+sequelize.sync({ force: false }).then(() => {
+  console.log("yes re-sync done!");
+});
+
 const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
