@@ -1,17 +1,32 @@
-module.exports = (sequelize, Sequelize) => {
+module.exports = (sequelize, DataTypes) => {
   const userProfile = sequelize.define("profile", {
-    userId: {
-      type: Sequelize.STRING,
-    },
-    photoProfile: {
-      type: Sequelize.STRING,
-    },
     userName: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notempty: true,
+      },
     },
-    departement: {
-      type: Sequelize.BOOLEAN,
+    imageProfile: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: "/images",
     },
+    about: {
+      type: DataTypes.STRING,
+    },
+    roleStatus: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notempty: true,
+    },
+      defaultValue: "staff",
+      },
+    },
+    sequelize,
+    tableName: "Groupomania",
+    modelName: "userProfile",
   });
   return userProfile;
 };

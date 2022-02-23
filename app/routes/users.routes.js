@@ -9,19 +9,19 @@ module.exports = (app) => {
   router.get("/", userProfile.findAll);
 
   // Retrieve all userProfile
-  router.get("/profile", userProfile.findAllProfile);
+  router.get("/user.controller", userProfile.findAllProfile);
 
   // Retrieve a single userProfile  with id
-  router.get("/:id", userProfile.findOne);
+  router.get("/user.controller", userProfile.findOne);
 
   // Update a userProfile with id
-  router.put("/:id", userProfile.update);
+  router.put("/user.controller", userProfile.update);
 
   // Delete a userProfile with id
-  router.delete("/:id", userProfile.delete);
+  router.delete("/user.controller", userProfile.delete);
 
   // Delete all userProfile
-  router.delete("/", userProfile.deleteAll);
+  router.delete("/user.controller", userProfile.deleteAll);
 
   app.use("/api/userProfile", router);
 };

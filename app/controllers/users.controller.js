@@ -24,8 +24,22 @@ exports.login = (req, res, next) => {
   User.findOne({ email: req.body.email })
     .then((user) => {
       if (!user) {
-        return res.status(401).json({ error: "User profile not found !" });
+        return res.status(401).json({ error: "User not found !" });
       }
+      bcrypt
+        .compare(req.body.password, user.password)
+        .then((valid) => {
+          if (!valid) {
+            return res.status(401).json({ error: "Incorrected password !" });
+          }
+          res.status(200).json({
+            userId: user._id,
+            token: jwt.sign({ userId: user._id }, process.env.TOKEN_KEY, {
+              expiresIn: "24h",
+            }),
+          });
+        })
+        .catch((error) => res.status(500).json({ error }));
     })
     .catch((error) => res.status(500).json({ error }));
 };
@@ -41,9 +55,9 @@ exports.create = (req, res) => {
   }
   // Create a user profile
   const profile = {
-    userId: req.body.userId,
     userName: req.body.userName,
-    departement: req.body.departement,
+    imageProfile: req.body.imageProfile,
+    roleStatus: req.body.roleStatus,
   };
   // Save new profile in the database
   userProfile
