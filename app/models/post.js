@@ -1,22 +1,22 @@
 module.exports = (sequelize, Sequelize) => {
-  const userProfile = sequelize.define(
-    "profile",
+  const Post = sequelize.define(
+    "post",
     {
-      userId: {
+      postTitle: {
         type: Sequelize.STRING,
         allowNull: false,
         validate: {
           notempty: true,
         },
       },
-      userName: {
+      postBy: {
         type: Sequelize.STRING,
         allowNull: false,
         validate: {
           notempty: true,
         },
       },
-      imageProfile: {
+      postImageUrl: {
         type: Sequelize.STRING,
         allowNull: false,
         defaultValue: "/images",
@@ -24,20 +24,19 @@ module.exports = (sequelize, Sequelize) => {
       about: {
         type: Sequelize.STRING,
       },
-      roleStatus: {
+      postCreator: {
         type: Sequelize.STRING,
         allowNull: false,
         validate: {
           notempty: true,
         },
-        defaultValue: "staff",
       },
     },
     sequelize,
     tableName,
     "Groupomania",
     modelName,
-    "userProfile"
+    "Post"
   );
-  return userProfile;
+  return Post;
 };

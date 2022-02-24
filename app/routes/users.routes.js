@@ -1,10 +1,13 @@
 module.exports = (app) => {
-  const userProfile = require("../controllers/users.controller.js");
-  const router = require("express").Router();
+  const express = require("express"); //Creates an Express application.
+  const router = express.Router(); //Create separate routers for each main route.
 
   const userCtrl = require("../controllers/users.controller");
   const auth = require("../middleware/auth");
   const multer = require("../middleware/multer");
+
+  router.post("/signup", userCtrl.signup);
+  router.post("/login", userCtrl.login);
 
   // Create a new userProfile
   router.post("/", auth, userProfile.create);

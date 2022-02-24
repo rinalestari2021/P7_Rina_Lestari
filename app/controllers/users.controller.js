@@ -77,9 +77,7 @@ exports.create = (req, res) => {
 // Retrieve all users profile from the database.
 exports.findAll = (req, res) => {
   const title = req.query.userName;
-  var condition = userName
-    ? { userName: { [Op.like]: `%${userName}%` } }
-    : null;
+  var condition = userName ? { userId: { [Op.like]: `%${userName}%` } } : null;
   userProfile
     .findAll({ where: condition })
     .then((data) => {
@@ -103,13 +101,13 @@ exports.findOne = (req, res) => {
         res.send(data);
       } else {
         res.status(404).send({
-          message: `Cannot find Tutorial with id=${userId}.`,
+          message: `Cannot find profile with id=${userId}.`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error retrieving Tutorial with id=" + userId,
+        message: "Error retrieving profile with id=" + userId,
       });
     });
 };

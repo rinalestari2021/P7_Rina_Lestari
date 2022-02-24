@@ -29,6 +29,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use("/images", express.static(path.join(__dirname, "images")));
+app.use("/api/usersprofile", userRoutes);
+app.use("/api/auth", userRoutes);
 
 // function to make changement from here to db directly
 //create
