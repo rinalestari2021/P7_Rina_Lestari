@@ -2,23 +2,29 @@ module.exports = (app) => {
   const userProfile = require("../controllers/users.controller.js");
   const router = require("express").Router();
 
+  const userCtrl = require("../controllers/users.controller");
+  const auth = require("../middleware/auth");
+  const multer = require("../middleware/multer");
+
   // Create a new userProfile
-  router.post("/", userProfile.create);
+  router.post("/", auth, userProfile.create);
+
+  // adding image
+  router.post("/", auth, multer, userCtrl.create);
 
   // Retrieve all userProfile
-  router.get("/", userProfile.findAll);
+  router.get("/", auth, userCtrl.findAll);
 
   // Retrieve a single userProfile  with id
-  router.get("/:id", userProfile.findOne);
+  router.get("/:id", auth, userCtrl.findOne);
 
   // Update a userProfile with id
-  router.put("/:id", userProfile.update);
-
-  // Delete a userProfile with id
-  router.delete("/:id", userProfile.delete);
+  router.put("/:id", auth, userCtrl.update);
 
   // Delete all userProfile
-  router.delete("/user.controller", userProfile.deleteAll);
+  router.delete("/:id", auth, userCtrl.deletePost);
 
   app.use("/api/userProfile", router);
+
+  module.exports = router;
 };

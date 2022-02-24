@@ -1,5 +1,5 @@
 const db = require("../models");
-const post = db.posts;
+const Post = models.posts;
 
 exports.getOnePost = (req, res, next) => {
   db.posts
