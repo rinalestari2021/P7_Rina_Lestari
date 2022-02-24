@@ -2,6 +2,7 @@ const dbConfig = require("../config/db.config.js");
 const Sequelize = require("sequelize");
 const { config } = require("dotenv");
 const fs = require("fs");
+
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
   dialect: dbConfig.dialect,
@@ -41,10 +42,12 @@ Object.keys(db).forEach((modelName) => {
 });
 
 const db = require("./models");
+const { append } = require("express/lib/response");
 
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.groupomania = require("./models")(sequelize, Sequelize);
+db.userprofile = require("./models/usersprofile")(sequelize, Sequelize);
+db.post = require("./models/post")(sequelize, Sequelize);
 
 module.exports = db;

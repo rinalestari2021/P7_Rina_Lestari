@@ -8,17 +8,14 @@ module.exports = (app) => {
   // Retrieve all userProfile
   router.get("/", userProfile.findAll);
 
-  // Retrieve all userProfile
-  router.get("/user.controller", userProfile.findAllProfile);
-
   // Retrieve a single userProfile  with id
-  router.get("/user.controller", userProfile.findOne);
+  router.get("/:id", userProfile.findOne);
 
   // Update a userProfile with id
-  router.put("/user.controller", userProfile.update);
+  router.put("/:id", userProfile.update);
 
   // Delete a userProfile with id
-  router.delete("/user.controller", userProfile.delete);
+  router.delete("/:id", userProfile.delete);
 
   // Delete all userProfile
   router.delete("/user.controller", userProfile.deleteAll);

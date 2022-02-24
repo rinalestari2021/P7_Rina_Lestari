@@ -57,7 +57,7 @@ exports.create = (req, res) => {
   const profile = {
     userName: req.body.userName,
     imageProfile: req.body.imageProfile,
-    roleStatus: req.body.roleStatus,
+    roleStatus: req.body.roleStatus ? req.body.roleStatus : false,
   };
   // Save new profile in the database
   userProfile
