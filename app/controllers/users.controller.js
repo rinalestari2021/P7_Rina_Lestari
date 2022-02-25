@@ -1,5 +1,5 @@
 const db = require("../models");
-const userProfile = db.groupomania;
+const userProfile = db.groupomania.users;
 const Op = db.Sequelize.Op;
 
 //Create user

@@ -1,6 +1,7 @@
 const dbConfig = require("../config/db.config.js");
 const Sequelize = require("sequelize");
-const { config } = require("dotenv");
+const dotenv = require("dotenv");
+dotenv.config();
 const fs = require("fs");
 
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
@@ -24,7 +25,7 @@ fs.readdirSync(__dirname)
     return (
       file.indexOf(".") !== 0 &&
       file !== basename &&
-      file.slice(-3) === "userprofile.js"
+      file.slice(-3) === "usersprofile.js"
     );
   })
   .forEach((file) => {

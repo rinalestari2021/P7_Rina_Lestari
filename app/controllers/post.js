@@ -97,7 +97,7 @@ exports.modifyPost = (req, res, next) => {
 exports.deletePost = (req, res) => {
   const id = req.params.userId;
   Post.destroy({
-    where: { id: id },
+    where: { id: req.params.id },
   })
     .then((num) => {
       if (num == 1) {

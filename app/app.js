@@ -12,6 +12,7 @@ const path = require("path");
 const fs = require("fs");
 
 const passwordValidator = require("password-validator");
+const { resolve } = require("path");
 
 app.use(cors(corsOptions));
 
@@ -29,8 +30,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use("/images", express.static(path.join(__dirname, "images")));
-app.use("/api/usersprofile", userRoutes);
-app.use("/api/auth", userRoutes);
 
 // function to make changement from here to db directly
 //create
@@ -66,6 +65,19 @@ app.get("/insert", (req, res) => {
     });
   res.send("insert");
 });
+
+//upload route
+//app.post(
+// "/",
+// upload.fields([
+//  { name: "avatar", maxCount: 1 },
+//  { name: "photos", maxCount: 10 },
+// ]),
+//(req, res) => {
+//  const data = req.body;
+//  const files = req.files;
+// }
+//);
 
 // delete from db using sequelize
 app.delete("/delete", (req, res) => {
