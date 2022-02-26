@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 const fs = require("fs");
 
+//Configuration Sequelize
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
   dialect: dbConfig.dialect,
@@ -15,7 +16,6 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
     idle: dbConfig.pool.idle,
   },
 });
-
 sequelize.sync({ force: false }).then(() => {
   console.log("yes re-sync done!");
 });
@@ -48,7 +48,16 @@ const { append } = require("express/lib/response");
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.userprofile = require("./models/usersprofile")(sequelize, Sequelize);
-db.post = require("./models/post")(sequelize, Sequelize);
+//import database
+db.users = require("./models/usersprofile.js")(sequelize, Sequelize);
+db.posts = require("./models/posts.js")(sequelize, Sequelize);
+db.comments = require("./models/comments.js")(sequelize, Sequelize);
+
+db.posts.belongTo(db.users, { onDelete: "CASCADE" });
+db.users.hasMany(db.posts);
+db.comments.belongTo(db.users, { onDelete: "CASCADE" });
+db.comments.belongTo(db.posts, { onDelete: "CASCADE" });
+db.posts.hasMany(db.comments);
+db.users.hasMany(db.comments);
 
 module.exports = db;

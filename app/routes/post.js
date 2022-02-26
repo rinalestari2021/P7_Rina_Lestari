@@ -2,10 +2,10 @@
 const express = require("express");
 const router = express.Router();
 
-const postCtrl = require("../controllers/post.js");
+const postCtrl = require("../controllers/posts.js");
 const router = require("express").Router();
 
-const userCtrl = require("../controllers/post");
+const userCtrl = require("../controllers/users.controller.js");
 const auth = require("../middleware/auth");
 const multer = require("../middleware/multer");
 

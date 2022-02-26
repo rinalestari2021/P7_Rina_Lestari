@@ -2,6 +2,12 @@ module.exports = (sequelize, Sequelize) => {
   const Post = sequelize.define(
     "post",
     {
+      postId: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+      },
+
       postTitle: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -9,34 +15,35 @@ module.exports = (sequelize, Sequelize) => {
           notempty: true,
         },
       },
+
       postBy: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         allowNull: false,
-        validate: {
-          notempty: true,
+        references: {
+          model: "Post",
+          key: "id",
         },
       },
+
       postImageUrl: {
         type: Sequelize.STRING,
         allowNull: false,
         defaultValue: "/images",
       },
-      about: {
-        type: Sequelize.STRING,
-      },
-      postCreator: {
-        type: Sequelize.STRING,
+
+      userId: {
+        type: Sequelize.INTEGER,
         allowNull: false,
-        validate: {
-          notempty: true,
+        onDelete: "CASCADE",
+        references: {
+          model: "userProfile",
+          key: "id",
         },
       },
     },
-    sequelize,
-    tableName,
-    "Groupomania",
-    modelName,
-    "Post"
+    Post.sync()
+      .then(() => console.log("Post created"))
+      .catch((error) => console.log(error))
   );
   return Post;
 };
